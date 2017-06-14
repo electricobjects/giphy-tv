@@ -1,0 +1,121 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>EO + Giphy TV</title>
+  <meta name="description" content="EO + Giphy TV">
+
+  <meta name="description" content="EO + Giphy TV"/>
+  <meta name="author" content="EO + Giphy"/>
+  <meta name="keywords" content="eo giphy gif search engine tv">
+
+  <script type="text/javascript" src="./js/jquery.min.js"></script>
+  <script type="text/javascript" src="./js/jquery.animate-enhanced.min.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+    body {
+        background-color: #000;
+        /*background-image: url(img/splash.png);*/
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        color:white;
+    }
+    .bug {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        margin: 25px;
+        width: auto;
+        height: 30px;
+        opacity: .3;
+        -ms-filter: "alpha(opacity=30)";
+        border: none;
+        outline: none;
+    }
+    .gif {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background-image: url(./img/splash.png);
+        background-repeat: no-repeat;
+        background-position: center center;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    .overlay {
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+        min-width: 100%;
+    }
+
+    /* small */
+    @media only screen and (max-width: 1024px) {
+        .bug {
+            margin: 25px;
+        }
+    }
+    @media only screen and (max-width: 480px) {
+        .bug {
+            margin: 10px;
+            height: 15px;
+        }
+    }
+  </style>
+</head>
+<body>
+
+    <div id="gif" class="gif" onclick="next()">
+        <img class="overlay" src="./img/clear.gif"/>
+    </div>
+
+        <a id="gif-href" onclick="goToGif()">
+        <img class="bug" src="./img/giphytv_bug_white.gif"/>
+    </a>
+
+    <script>
+    var interval;
+    var gifUrl;
+
+    function slideshow() {
+        $.support.cors = true;
+        $.getJSON("http://api.giphy.com/v1/gifs/random?api_key=CW27AW0nlp5u0&tag=cats", null, function(response) {
+            var id = response.data.id;
+            var image_src = response.data.image_original_url;
+
+            var image = new Image();
+            preload.src = image_src;
+
+            image.onload = function () {
+              $('#gif').css('background-image', 'url(' + image + ')');
+            };
+
+            gifUrl = '//giphy.com/gifs/' + id;
+        }).error(function(jqXHR, textStatus, e) { console.log(e); });
+    };
+
+    function goToGif() {
+        window.open(gifUrl, "_blank", "width=1000,height=960")
+    };
+
+    function next() {
+        clearInterval(interval);
+        slideshow();
+        interval = setInterval(slideshow, 10000);
+    }
+    interval = setInterval(slideshow, 10000);
+
+    slideshow();
+  </script>
