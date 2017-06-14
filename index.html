@@ -97,8 +97,7 @@
             var fadeTime = 5000;
             var image = new Image();
 
-            preload.src = image_src;
-
+            image.src = image_src;
             image.onload = function () {
               $('#gif').css('background-image', 'url(' + image + ')');
             };
