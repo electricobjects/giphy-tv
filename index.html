@@ -91,11 +91,12 @@
 
     function slideshow() {
         $.support.cors = true;
-        $.getJSON("http://api.giphy.com/v1/gifs/random?api_key=CW27AW0nlp5u0&tag=cats", null, function(response) {
+        $.getJSON("https://api.giphy.com/v1/gifs/random?api_key=CW27AW0nlp5u0&tag=cats", null, function(response) {
             var id = response.data.id;
             var image_src = response.data.image_original_url;
-
+            var fadeTime = 5000;
             var image = new Image();
+
             preload.src = image_src;
 
             image.onload = function () {
