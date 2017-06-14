@@ -99,7 +99,7 @@
 
             image.src = image_src.replace(/^http:\/\//i, 'https://');;
             image.onload = function () {
-              $('#gif').css('background-image', 'url(' + image + ')');
+              $('#gif').css('background-image', 'url(' + image.src + ')');
             };
 
             gifUrl = '//giphy.com/gifs/' + id;
