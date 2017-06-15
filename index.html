@@ -94,10 +94,9 @@
         $.getJSON("https://api.giphy.com/v1/gifs/random?api_key=CW27AW0nlp5u0&tag=cats", null, function(response) {
             var id = response.data.id;
             var image_src = response.data.image_original_url;
-            var fadeTime = 5000;
             var image = new Image();
 
-            image.src = image_src.replace(/^http:\/\//i, 'https://');;
+            image.src = image_src.replace(/^http:\/\//i, 'https://');
             image.onload = function () {
               $('#gif').css('background-image', 'url(' + image.src + ')');
             };
