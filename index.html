@@ -101,7 +101,7 @@
               image.src = webp_src.replace(/^http:\/\//i, 'https://'); // Force SSL
               image.onload = function () {
                 $('#gif').css('background-image', 'url(' + image.src + ')');
-                interval = setTimeout(slideshow, 7000)
+                interval = setTimeout(slideshow, 10000)
               };
             }).error(function(jqXHR, textStatus, e) { console.log(e); });
 
