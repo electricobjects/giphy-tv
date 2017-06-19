@@ -83,9 +83,9 @@
 <body>
 
     <div id="gif" class="gif" onclick="next()">
-        <video autoplay loop muted preload="none" id="video">
+        <!-- <video autoplay loop muted preload="none" id="video">
           <source id="tv_channel" type="video/mp4"/>
-        </video>
+        </video> -->
         <img class="overlay" src="./img/clear.gif"/>
     </div>
 
@@ -105,20 +105,20 @@
 
             // Grab Orginal Sized Still
             $.getJSON("https://api.giphy.com/v1/gifs/" + id + "?api_key=CW27AW0nlp5u0", null, function(response) {
-              var still_src = response.data.images.original_still.url;
+              var still_src = response.data.images.original.webp;
 
               // Preload still before setting background of div, prevents while video starts to play
               var image = new Image();
               image.src = still_src.replace(/^http:\/\//i, 'https://');
               image.onload = function () {
                 $('#gif').css('background-image', 'url(' + image.src + ')');
-                $video = $("#video");
-                ssl_src = video_src.replace(/^http:\/\//i, 'https://');
-
-                // Finally load mp4
-                $video.find("#tv_channel").attr('src', ssl_src);
-                $video.load();
-                $video[0].play();
+                // $video = $("#video");
+                // ssl_src = video_src.replace(/^http:\/\//i, 'https://');
+                //
+                // // Finally load mp4
+                // $video.find("#tv_channel").attr('src', ssl_src);
+                // $video.load();
+                // $video[0].play();
               };
             }).error(function(jqXHR, textStatus, e) { console.log(e); });
 
