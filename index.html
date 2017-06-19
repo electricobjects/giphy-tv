@@ -101,12 +101,12 @@
               image.src = webp_src.replace(/^http:\/\//i, 'https://'); // Force SSL
               image.onload = function () {
                 $('#gif').css('background-image', 'url(' + image.src + ')');
-                interval = setTimeout(slideshow, 10000)
+                interval = setTimeout(slideshow, 10000);
               };
-            }).error(function(jqXHR, textStatus, e) { console.log(e); });
+            }).error(function(jqXHR, textStatus, e) { console.log(e); interval = setTimeout(slideshow, 10000);});
 
             gifUrl = '//giphy.com/gifs/' + id;
-        }).error(function(jqXHR, textStatus, e) { console.log(e); });
+        }).error(function(jqXHR, textStatus, e) { console.log(e); interval = setTimeout(slideshow, 10000); });
     };
 
     slideshow();
