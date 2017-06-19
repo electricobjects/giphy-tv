@@ -118,6 +118,7 @@
                 // Finally load mp4
                 $video.find("#tv_channel").attr('src', ssl_src);
                 $video.load();
+                $video[0].play();
               };
             }).error(function(jqXHR, textStatus, e) { console.log(e); });
 
