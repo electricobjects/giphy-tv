@@ -101,26 +101,36 @@
         $.support.cors = true;
         $.getJSON("https://api.giphy.com/v1/gifs/random?api_key=CW27AW0nlp5u0", null, function(response) {
             var id = response.data.id;
-            var video_src = response.data.image_mp4_url;
 
-            // Grab Orginal Sized Still
-            $.getJSON("https://api.giphy.com/v1/gifs/" + id + "?api_key=CW27AW0nlp5u0", null, function(response) {
-              var still_src = response.data.images.original_still.url;
+            var id = response.data.id;
+            var image_src = response.data.image_original_url;
+            var image = new Image();
+            image.src = image_src.replace(/^http:\/\//i, 'https://');
+            image.onload = function () {
+              $('#gif').css('background-image', 'url(' + image.src + ')');
+            };
 
-              // Preload still before setting background of div, prevents while video starts to play
-              var image = new Image();
-              image.src = still_src.replace(/^http:\/\//i, 'https://');
-              image.onload = function () {
-                $('#gif').css('background-image', 'url(' + image.src + ')');
-                $video = $("#video");
-                ssl_src = video_src.replace(/^http:\/\//i, 'https://');
 
-                // Finally load mp4
-                $video.find("#tv_channel").attr('src', ssl_src);
-                $video.load();
-                $video[0].play();
-              };
-            }).error(function(jqXHR, textStatus, e) { console.log(e); });
+            // var video_src = response.data.image_mp4_url;
+            //
+            // // Grab Orginal Sized Still
+            // $.getJSON("https://api.giphy.com/v1/gifs/" + id + "?api_key=CW27AW0nlp5u0", null, function(response) {
+            //   var still_src = response.data.images.original_still.url;
+            //
+            //   // Preload still before setting background of div, prevents while video starts to play
+            //   var image = new Image();
+            //   image.src = still_src.replace(/^http:\/\//i, 'https://');
+            //   image.onload = function () {
+            //     $('#gif').css('background-image', 'url(' + image.src + ')');
+            //     $video = $("#video");
+            //     ssl_src = video_src.replace(/^http:\/\//i, 'https://');
+            //
+            //     // Finally load mp4
+            //     $video.find("#tv_channel").attr('src', ssl_src);
+            //     $video.load();
+            //     $video[0].play();
+            //   };
+            // }).error(function(jqXHR, textStatus, e) { console.log(e); });
 
             gifUrl = '//giphy.com/gifs/' + id;
         }).error(function(jqXHR, textStatus, e) { console.log(e); });
